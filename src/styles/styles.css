@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap');
+@import './Variables.css';
+
+/* Reset global */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; font-family: var(--fuente-principal); }
+
+body {
+  background: var(--color-secundario);
+  color: var(--color-texto);
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Botones generales */
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--color-primario);
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+.btn:hover { background: var(--color-acento); }
+
+/* Header con banner */
+.header {
+  width: 100%;
+  height: 80vh; /* un poquito más compacto que full screen */
+  position: relative;
+  overflow: hidden;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35); /* overlay más sutil */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  z-index: 2; /* arriba del slider*/
+}
+
+.brand h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--fuente-titulos);
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.8);
+}
+
+/* Buscador */
+.search-demo {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1rem;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.search-demo input,
+.search-demo button {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+}
+
+.search-demo button {
+  background-color: #ff6b6b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.search-demo button:hover {
+  background-color: #ff4b4b;
+}
+
+/* Contacto */
+.contact-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: var(--color-primario);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form h2 { text-align: center; font-size: 1.5rem; color: var(--color-texto); }
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.contact-form button {
+  padding: 12px;
+  background: var(--color-acento);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--color-texto-claro);
+  font-weight: bold;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background: var(--color-primario);
+  color: #222;
+}
+
+/* Footer */
+.footer {
+  background: var(--color-acento);
+  color: var(--color-texto-claro);
+  text-align: center;
+  padding: 16px;
+  font-size: 0.9rem;
+}
+
+/* WhatsApp flotante */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+/* Secciones y títulos */
+.section-title {
+  font-family: var(--fuente-titulos);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #222;
+}
+
+.section-subtitle {
+  font-family: var(--fuente-principal);
+  font-size: 1rem;
+  text-align: center;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.properties-section,
+.calendar-events-section,
+.contact-section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-events-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendar-events-section {
+    grid-template-columns: 1fr;
+  }
+  .search-demo { flex-direction: column; width: 90%; margin: 0 auto; }
+  .search-demo input,
+  .search-demo button {
+    width: 100%;
+  }
+}

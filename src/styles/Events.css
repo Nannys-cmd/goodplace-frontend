@@ -1,0 +1,31 @@
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  font-family: "Barlow", sans-serif;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.event-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: #222;
+}
+
+.event-card .muted {
+  font-size: 0.9rem;
+  color: #666;
+}

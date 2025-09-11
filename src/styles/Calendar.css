@@ -1,0 +1,49 @@
+.calendar-wrapper {
+  max-width: 400px;
+  margin: auto;
+}
+
+.react-calendar {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  font-family: var(--fuente-principal);
+}
+
+.react-calendar__tile {
+  height: 50px !important;
+  font-size: 0.9rem;
+  position: relative;
+  transition: 0.2s;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f7c38755;
+  border-radius: 6px;
+}
+
+/* Disponibilidad */
+.react-calendar__tile.disponible {
+  background-color: #e2f7e2 !important;
+  color: #155724 !important;
+  border-radius: 6px;
+}
+
+.react-calendar__tile.semi-disponible {
+  background-color: #fff6d9 !important;
+  color: #856404 !important;
+  border-radius: 6px;
+}
+
+.react-calendar__tile.no-disponible {
+  background-color: #ffe0e0 !important;
+  color: #a10000 !important;
+  border-radius: 6px;
+}
+
+.event-dot {
+  color: #0097b2;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1;
+}

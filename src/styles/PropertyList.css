@@ -1,0 +1,48 @@
+/* Carousel wrapper */
+.properties-carousel {
+  margin: 1.5rem 0;
+}
+
+.properties-carousel .slick-slide > div {
+  height: 100%;
+  display: flex;          /* estira las cards */
+  align-items: stretch;
+}
+
+.properties-carousel .card {
+  flex: 1;               /* hace que cada card se estire igual */
+}
+
+/* Dots position */
+.slick-dots {
+  bottom: -25px;
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next { 
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #0071c2 !important;
+  font-size: 28px !important;
+  opacity: 1 !important;
+  transition: color 0.3s ease;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+  color: #005999 !important; /* azul más oscuro */
+}
+
+.slick-prev {
+  left: -40px !important; /* mueve la flecha izquierda hacia afuera */
+}
+
+.slick-next {
+  right: -40px !important; /* mueve la flecha derecha hacia afuera */
+}

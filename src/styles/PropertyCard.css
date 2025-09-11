@@ -1,0 +1,125 @@
+.card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;       /* ✔ se asegura de ocupar todo el alto */
+  min-height: 360px;  /* ✔ fuerza un mínimo igualado (ajustá este valor a gusto) */
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status {
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.status.available { background: rgba(0,128,0,0.8); }
+.status.unavailable { background: rgba(200,0,0,0.8); }
+
+.price-tag {
+  background: #fff;
+  color: #333;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.card-content {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  font-family: var(--fuente-titulos);
+  margin: 0 0 15px;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.card-content .muted {
+  color: #666;
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center; /* centra el contenido horizontalmente */
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto; /* empuja hacia abajo si querés que quede al final */
+}
+
+.actions .btn {
+  background: #0071c2;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.actions .btn:hover { background: #005a99; }
+
+.property-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* centra horizontalmente */
+  text-align: center;
+  padding: 1rem;
+}
+
+.reserve-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: #0077b6;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 80%;          /* ocupa 80% del ancho de la tarjeta */
+  max-width: 200px;    /* pero no más de 200px */
+}
+
+.reserve-btn:hover {
+  background: #023e8a; /* tono más oscuro al pasar */
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
