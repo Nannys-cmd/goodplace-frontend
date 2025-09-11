@@ -6,6 +6,7 @@ import BookingForm from "./components/BookingForm";
 import ContactForm from "./components/ContactForm";
 import Events from "./components/Events";
 import { FaWhatsapp } from "react-icons/fa";
+import API_URL from "./config"; // ✅ Importamos la URL desde config.js
 
 export default function App() {
   const [properties, setProperties] = useState([]);
@@ -22,10 +23,13 @@ export default function App() {
 
   // 🔹 Traer propiedades desde la API
   useEffect(() => {
-    fetch("https://goodplace-backend.onrender.com")
-      .then(res => res.json())
-      .then(data => setProperties(data))
-      .catch(err => console.error("Error al traer propiedades:", err));
+    fetch(API_URL) // ✅ Ahora usamos la URL dinámica
+      .then((res) => {
+        if (!res.ok) throw new Error("Error en la respuesta del servidor");
+        return res.json();
+      })
+      .then((data) => setProperties(data))
+      .catch((err) => console.error("Error al traer propiedades:", err));
   }, []);
 
   const handleReserve = (property) => {
