@@ -22,7 +22,7 @@ export default function App() {
 
   // 🔹 Traer propiedades desde la API
   useEffect(() => {
-    fetch("http://localhost:5000/api/properties")
+    fetch("https://goodplace-backend.onrender.com")
       .then(res => res.json())
       .then(data => setProperties(data))
       .catch(err => console.error("Error al traer propiedades:", err));
