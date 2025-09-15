@@ -1,3 +1,4 @@
+// src/components/BookingForm.jsx
 import React, { useState } from "react";
 import "../styles/BookingForm.css";
 
@@ -8,6 +9,7 @@ export default function BookingForm({ property, selectedDates }) {
     dni: null,
     acceptPolicy: false,
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -21,23 +23,50 @@ export default function BookingForm({ property, selectedDates }) {
     setFormData({ ...formData, dni: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.acceptPolicy) {
       alert("Debes aceptar la política de protección de datos.");
       return;
     }
 
-    console.log({
-      ...formData,
-      selectedDates,
-      property: property.title,
-    });
+    if (!selectedDates || !selectedDates[0] || !selectedDates[1]) {
+      alert("Debes seleccionar un rango de fechas en el calendario.");
+      return;
+    }
 
-    alert("Reserva enviada correctamente ✅");
+    try {
+      setLoading(true);
 
-    // Scroll suave al inicio de la página
-    window.scrollTo({ top: 0, behavior: "smooth" });
+      // Armamos el FormData para enviar al backend
+      const fd = new FormData();
+      fd.append("name", formData.name);
+      fd.append("email", formData.email);
+      fd.append("propertyId", property.id);
+      fd.append("start", selectedDates[0].toISOString().split("T")[0]);
+      fd.append("end", selectedDates[1].toISOString().split("T")[0]);
+      if (formData.dni) fd.append("dni", formData.dni);
+
+      const res = await fetch(
+        import.meta.env.VITE_API_URL + "/bookings",
+        { method: "POST", body: fd }
+      );
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Error al crear la reserva");
+      }
+
+      alert("Reserva enviada correctamente ✅ Redirigiendo a WhatsApp...");
+      // Redirigir al WhatsApp generado por el backend
+      window.location.href = data.whatsappUrl;
+
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al enviar la reserva ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const formatDates = () => {
@@ -100,15 +129,17 @@ export default function BookingForm({ property, selectedDates }) {
           required
         />
         <label>
-          He leído y acepto la <strong>Política de Protección de Datos</strong>.
+          He leído y acepto la{" "}
+          <a href="/politica-privacidad.html" target="_blank" rel="noopener noreferrer">
+            <strong>Política de Protección de Datos</strong>
+          </a>.
         </label>
       </div>
 
-      <button type="submit" className="btn-submit">
-        Pagar 10% y Reservar
+      <button type="submit" className="btn-submit" disabled={loading}>
+        {loading ? "Enviando..." : "Pagar 10% y Reservar"}
       </button>
 
-      {/* Botón adicional para volver al inicio */}
       <button
         type="button"
         className="btn-back"

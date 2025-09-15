@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";
@@ -6,24 +7,20 @@ import BookingForm from "./components/BookingForm";
 import ContactForm from "./components/ContactForm";
 import Events from "./components/Events";
 import { FaWhatsapp } from "react-icons/fa";
-import API_URL from "./config"; // ✅ Importamos la URL desde config.js
+import API_URL from "./config";
 
 export default function App() {
   const [properties, setProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedDates, setSelectedDates] = useState([null, null]);
   const [highlightCalendar, setHighlightCalendar] = useState(false);
+  const [events, setEvents] = useState([]); // ✅ eventos dinámicos
 
   const calendarRef = React.useRef(null);
 
-  const events = [
-    { date: "2025-08-25", title: "Fiesta local en la plaza" },
-    { date: "2025-08-30", title: "Mercado artesanal" },
-  ];
-
   // 🔹 Traer propiedades desde la API
   useEffect(() => {
-    fetch(API_URL) // ✅ Ahora usamos la URL dinámica
+    fetch(API_URL)
       .then((res) => {
         if (!res.ok) throw new Error("Error en la respuesta del servidor");
         return res.json();
@@ -32,11 +29,30 @@ export default function App() {
       .catch((err) => console.error("Error al traer propiedades:", err));
   }, []);
 
+  // 🔹 Traer feriados desde el backend
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch(API_URL + "/calendar"); // apunta a Render
+        if (!res.ok) throw new Error("Error al cargar eventos");
+        const data = await res.json();
+
+        // Transformamos para Calendar y Events
+        const transformed = data.map(ev => ({
+          title: ev.title,
+          date: ev.start.split("T")[0]
+        }));
+        setEvents(transformed);
+      } catch (err) {
+        console.error("Error al cargar feriados:", err);
+      }
+    };
+    fetchEvents();
+  }, []);
+
   const handleReserve = (property) => {
     setSelectedProperty(property);
-    // Scroll suave al calendario
     calendarRef.current.scrollIntoView({ behavior: "smooth" });
-    // Destacar el calendario temporalmente
     setHighlightCalendar(true);
     setTimeout(() => setHighlightCalendar(false), 2500);
   };

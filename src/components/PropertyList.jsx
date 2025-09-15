@@ -1,3 +1,4 @@
+// Frontend/src/components/PropertyList.jsx
 import React from "react";
 import PropertyCard from "./PropertyCard";
 import Slider from "react-slick";

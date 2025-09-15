@@ -1,3 +1,4 @@
+// Frontend/src/components/PropertyCard.jsx
 import React from "react";
 import "../styles/PropertyCard.css";
 

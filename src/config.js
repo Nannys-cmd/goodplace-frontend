@@ -1,12 +1,6 @@
 // src/config.js
+// Devuelve la base URL del backend (sin la ruta /api/... final)
+// Vite expone variables con el prefijo VITE_ (import.meta.env)
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
-// 🔹 URL del backend
-// Cuando trabajes en local, usá "http://localhost:5000/api/properties"
-// Cuando lo subas a producción, usá la URL de Render
-
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://goodplace-backend.onrender.com/api/properties" // ✅ Render
-    : "http://localhost:5000/api/properties"; // ✅ Local
-
-export default API_URL;
+export default API_BASE;
