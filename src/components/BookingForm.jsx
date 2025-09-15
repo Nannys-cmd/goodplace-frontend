@@ -1,4 +1,3 @@
-// src/components/BookingForm.jsx
 import React, { useState } from "react";
 import "../styles/BookingForm.css";
 
@@ -13,10 +12,7 @@ export default function BookingForm({ property, selectedDates }) {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+    setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
 
   const handleFileChange = (e) => {
@@ -25,20 +21,12 @@ export default function BookingForm({ property, selectedDates }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.acceptPolicy) {
-      alert("Debes aceptar la política de protección de datos.");
-      return;
-    }
-
-    if (!selectedDates || !selectedDates[0] || !selectedDates[1]) {
-      alert("Debes seleccionar un rango de fechas en el calendario.");
-      return;
-    }
+    if (!formData.acceptPolicy) return alert("Debes aceptar la política de protección de datos.");
+    if (!selectedDates || !selectedDates[0] || !selectedDates[1]) return alert("Debes seleccionar un rango de fechas.");
 
     try {
       setLoading(true);
 
-      // Armamos el FormData para enviar al backend
       const fd = new FormData();
       fd.append("name", formData.name);
       fd.append("email", formData.email);
@@ -47,18 +35,11 @@ export default function BookingForm({ property, selectedDates }) {
       fd.append("end", selectedDates[1].toISOString().split("T")[0]);
       if (formData.dni) fd.append("dni", formData.dni);
 
-      const res = await fetch(
-        import.meta.env.VITE_API_URL + "/bookings",
-        { method: "POST", body: fd }
-      );
-
+      const res = await fetch(import.meta.env.VITE_API_URL + "/bookings", { method: "POST", body: fd });
       const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Error al crear la reserva");
-      }
+      if (!res.ok || !data.ok) throw new Error(data.error || "Error al crear la reserva");
 
-      alert("Reserva enviada correctamente ✅ Redirigiendo a WhatsApp...");
-      // Redirigir al WhatsApp generado por el backend
+      // 🌸 Redirige directamente a WhatsApp sin alert
       window.location.href = data.whatsappUrl;
 
     } catch (err) {
@@ -71,13 +52,8 @@ export default function BookingForm({ property, selectedDates }) {
 
   const formatDates = () => {
     if (!selectedDates) return "";
-    if (Array.isArray(selectedDates)) {
-      const [start, end] = selectedDates;
-      return start && end
-        ? `Del ${start.toLocaleDateString()} al ${end.toLocaleDateString()}`
-        : "Seleccioná tus fechas";
-    }
-    return `Fecha: ${selectedDates.toLocaleDateString()}`;
+    const [start, end] = selectedDates;
+    return start && end ? `Del ${start.toLocaleDateString()} al ${end.toLocaleDateString()}` : "Seleccioná tus fechas";
   };
 
   return (
@@ -86,53 +62,24 @@ export default function BookingForm({ property, selectedDates }) {
       <p className="section-subtitle">{formatDates()}</p>
 
       <div className="form-group">
-        <input
-          type="text"
-          name="name"
-          placeholder="Tu nombre"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="name" placeholder="Tu nombre" value={formData.name} onChange={handleChange} required />
       </div>
 
       <div className="form-group">
-        <input
-          type="email"
-          name="email"
-          placeholder="Tu email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <input type="email" name="email" placeholder="Tu email" value={formData.email} onChange={handleChange} required />
       </div>
 
       <div className="form-group">
         <label htmlFor="dni">
           Subí el <strong>frente del DNI</strong>
         </label>
-        <input
-          type="file"
-          name="dni"
-          accept="image/*"
-          onChange={handleFileChange}
-          required
-        />
+        <input type="file" name="dni" accept="image/*" onChange={handleFileChange} required />
       </div>
 
       <div className="form-group policy">
-        <input
-          type="checkbox"
-          name="acceptPolicy"
-          checked={formData.acceptPolicy}
-          onChange={handleChange}
-          required
-        />
+        <input type="checkbox" name="acceptPolicy" checked={formData.acceptPolicy} onChange={handleChange} required />
         <label>
-          He leído y acepto la{" "}
-          <a href="/politica-privacidad.html" target="_blank" rel="noopener noreferrer">
-            <strong>Política de Protección de Datos</strong>
-          </a>.
+          He leído y acepto la <a href="/politica-privacidad.html" target="_blank" rel="noopener noreferrer"><strong>Política de Protección de Datos</strong></a>.
         </label>
       </div>
 
@@ -140,11 +87,7 @@ export default function BookingForm({ property, selectedDates }) {
         {loading ? "Enviando..." : "Pagar 10% y Reservar"}
       </button>
 
-      <button
-        type="button"
-        className="btn-back"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
+      <button type="button" className="btn-back" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
         Volver al inicio
       </button>
     </form>
