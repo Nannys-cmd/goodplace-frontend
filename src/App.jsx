@@ -14,13 +14,13 @@ export default function App() {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedDates, setSelectedDates] = useState([null, null]);
   const [highlightCalendar, setHighlightCalendar] = useState(false);
-  const [events, setEvents] = useState([]); // ✅ eventos dinámicos
+  const [events, setEvents] = useState([]);
 
   const calendarRef = React.useRef(null);
 
-  // 🔹 Traer propiedades desde la API
+  // 🔹 Traer propiedades desde el backend
   useEffect(() => {
-    fetch(API_URL)
+    fetch(`${API_URL}/properties`)
       .then((res) => {
         if (!res.ok) throw new Error("Error en la respuesta del servidor");
         return res.json();
@@ -33,14 +33,14 @@ export default function App() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch(API_URL + "/calendar"); // apunta a Render
+        const res = await fetch(`${API_URL}/calendar`);
         if (!res.ok) throw new Error("Error al cargar eventos");
         const data = await res.json();
 
         // Transformamos para Calendar y Events
-        const transformed = data.map(ev => ({
-          title: ev.title,
-          date: ev.start.split("T")[0]
+        const transformed = data.map((ev) => ({
+          title: ev.summary || ev.title,
+          date: ev.start.split("T")[0],
         }));
         setEvents(transformed);
       } catch (err) {
@@ -76,7 +76,9 @@ export default function App() {
           ref={calendarRef}
         >
           <h2 className="section-title">Seleccioná tus fechas</h2>
-          <p className="section-subtitle">Consulta disponibilidad y eventos locales</p>
+          <p className="section-subtitle">
+            Consulta disponibilidad y eventos locales
+          </p>
           <CalendarComponent events={events} onDateChange={handleDateChange} />
         </div>
         <div className="events-wrapper">
