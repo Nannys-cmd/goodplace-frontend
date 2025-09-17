@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/Calendar.css";
-import { availability } from "../data/availability";
 
 export default function CalendarComponent({ events, onDateChange }) {
   const [selectedDates, setSelectedDates] = useState([null, null]);
@@ -13,17 +12,16 @@ export default function CalendarComponent({ events, onDateChange }) {
     if (onDateChange) onDateChange(dates);
   };
 
+  // Colorea días según si hay eventos
   const tileClassName = ({ date }) => {
     const day = date.toISOString().split("T")[0];
-    const state = availability[day];
+    const event = events.find((e) => e.date === day);
 
-    if (!state) return "";
-    if (!state.booking && !state.airbnb) return "no-disponible";
-    if (state.booking && state.airbnb) return "disponible";
-    if (state.booking || state.airbnb) return "semi-disponible";
+    if (event) return "evento-dia"; // clase CSS especial para días con eventos
     return "";
   };
 
+  // Punto o tooltip para los eventos
   const tileContent = ({ date }) => {
     const event = events.find((e) => e.date === date.toISOString().split("T")[0]);
     if (event) return <div className="event-dot" title={event.title}>•</div>;
@@ -42,3 +40,4 @@ export default function CalendarComponent({ events, onDateChange }) {
     </div>
   );
 }
+
