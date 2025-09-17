@@ -29,26 +29,22 @@ export default function App() {
       .catch((err) => console.error("Error al traer propiedades:", err));
   }, []);
 
-  // 🔹 Traer feriados desde el backend
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch(`${API_URL}/calendar`);
-        if (!res.ok) throw new Error("Error al cargar eventos");
-        const data = await res.json();
+// 🔹 Traer reservas + feriados desde el backend
+useEffect(() => {
+  const fetchEvents = async () => {
+    try {
+      const res = await fetch(`${API_URL}/availability`);
+      if (!res.ok) throw new Error("Error al cargar eventos");
+      const data = await res.json();
 
-        // Transformamos para Calendar y Events
-        const transformed = data.map((ev) => ({
-          title: ev.summary || ev.title,
-          date: ev.start.split("T")[0],
-        }));
-        setEvents(transformed);
-      } catch (err) {
-        console.error("Error al cargar feriados:", err);
-      }
-    };
-    fetchEvents();
-  }, []);
+      // Ya vienen con { title, date } listos
+      setEvents(data);
+    } catch (err) {
+      console.error("Error al cargar eventos:", err);
+    }
+  };
+  fetchEvents();
+}, []);
 
   const handleReserve = (property) => {
     setSelectedProperty(property);
