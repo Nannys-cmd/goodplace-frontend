@@ -16,7 +16,7 @@ export default function Header() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 5000); // cada 5 segundos
+    }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -31,7 +31,6 @@ export default function Header() {
           ></div>
         ))}
 
-        {/* Overlay con texto y buscador */}
         <div className="overlay">
           <div className="brand no-logo">
             <h1>GoodPlace</h1>

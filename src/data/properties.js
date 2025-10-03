@@ -7,7 +7,6 @@ export const properties = [
     img: "/sample1.jpg",
     available: true,
     price: 120,
-    bookingLink: "https://www.booking.com/hotel/ar/amazing-wide-apartment-in-the-heart-of-palermo.es.html"
   },
   {
     id: 2,
@@ -16,7 +15,6 @@ export const properties = [
     img: "/sample2.jpg",
     available: true,
     price: 95,
-    bookingLink: "https://www.booking.com/hotel/ar/downtown-suite-self-check-in.es.html"
   },
   {
     id: 3,
@@ -25,7 +23,6 @@ export const properties = [
     img: "/sample3.jpg",
     available: true,
     price: 110,
-    bookingLink: "https://www.booking.com/hotel/ar/hermoso-departamento-en-palermo-hollywood-buenos-aires4.es.html"
   },
   {
     id: 4,
@@ -34,7 +31,6 @@ export const properties = [
     img: "/sample4.jpg",
     available: true,
     price: 100,
-    bookingLink: "https://www.booking.com/hotel/ar/nuevo-belgrano-buenos-aires.es.html"
   },
   {
     id: 5,
@@ -43,7 +39,6 @@ export const properties = [
     img: "/sample5.jpg",
     available: true,
     price: 130,
-    bookingLink: "https://www.booking.com/hotel/ar/palermo-hollywood-skyline.es.html"
   },
   {
     id: 6,
@@ -52,7 +47,6 @@ export const properties = [
     img: "/sample6.jpg",
     available: true,
     price: 125,
-    bookingLink: "https://www.booking.com/hotel/ar/palermo-soho-con-jardin.es.html"
   },
   {
     id: 7,
@@ -61,7 +55,6 @@ export const properties = [
     img: "/sample7.jpg",
     available: true,
     price: 140,
-    bookingLink: "https://www.booking.com/hotel/ar/park-view-rooftop-artdeco-desing.es.html"
   },
   {
     id: 8,
@@ -70,6 +63,5 @@ export const properties = [
     img: "/sample8.jpg",
     available: true,
     price: 105,
-    bookingLink: "https://www.booking.com/hotel/ar/suite-palermo.es.html"
   }
 ];

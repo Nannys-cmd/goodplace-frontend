@@ -4,7 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/Calendar.css";
 
-export default function CalendarComponent({ events, onDateChange }) {
+export default function CalendarComponent({ events = [], onDateChange }) {
   const [selectedDates, setSelectedDates] = useState([null, null]);
 
   const handleChange = (dates) => {
@@ -12,20 +12,19 @@ export default function CalendarComponent({ events, onDateChange }) {
     if (onDateChange) onDateChange(dates);
   };
 
-  // Colorea días según si hay eventos
+  // Colorea días según si hay eventos (opcional)
   const tileClassName = ({ date }) => {
+    if (!events) return "";
     const day = date.toISOString().split("T")[0];
     const event = events.find((e) => e.date === day);
-
-    if (event) return "evento-dia"; // clase CSS especial para días con eventos
-    return "";
+    return event ? "evento-dia" : "";
   };
 
-  // Punto o tooltip para los eventos
+  // Punto o tooltip para los eventos (opcional)
   const tileContent = ({ date }) => {
+    if (!events) return null;
     const event = events.find((e) => e.date === date.toISOString().split("T")[0]);
-    if (event) return <div className="event-dot" title={event.title}>•</div>;
-    return null;
+    return event ? <div className="event-dot" title={event.title}>•</div> : null;
   };
 
   return (
@@ -40,4 +39,3 @@ export default function CalendarComponent({ events, onDateChange }) {
     </div>
   );
 }
-

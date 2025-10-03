@@ -1,111 +1,57 @@
-// App.jsx
+//Frontend/src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";
-import CalendarComponent from "./components/Calendar";
 import BookingForm from "./components/BookingForm";
 import ContactForm from "./components/ContactForm";
-import Events from "./components/Events";
-import { FaWhatsapp } from "react-icons/fa";
-import API_URL from "./config";
+import CalendarComponent from "./components/Calendar";
+import "../src/styles/styles.css";
 
-export default function App() {
+function App() {
   const [properties, setProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedDates, setSelectedDates] = useState([null, null]);
-  const [highlightCalendar, setHighlightCalendar] = useState(false);
-  const [events, setEvents] = useState([]);
 
-  const calendarRef = React.useRef(null);
-
-  // 🔹 Traer propiedades desde el backend
   useEffect(() => {
-    fetch(`${API_URL}/properties`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error en la respuesta del servidor");
-        return res.json();
-      })
+    fetch(import.meta.env.VITE_API_URL + "/properties")
+      .then((res) => res.json())
       .then((data) => setProperties(data))
-      .catch((err) => console.error("Error al traer propiedades:", err));
+      .catch((err) => console.error(err));
   }, []);
-
-// 🔹 Traer reservas + feriados desde el backend
-useEffect(() => {
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch(`${API_URL}/availability`);
-      if (!res.ok) throw new Error("Error al cargar eventos");
-      const data = await res.json();
-
-      // Ya vienen con { title, date } listos
-      setEvents(data);
-    } catch (err) {
-      console.error("Error al cargar eventos:", err);
-    }
-  };
-  fetchEvents();
-}, []);
 
   const handleReserve = (property) => {
     setSelectedProperty(property);
-    calendarRef.current.scrollIntoView({ behavior: "smooth" });
-    setHighlightCalendar(true);
-    setTimeout(() => setHighlightCalendar(false), 2500);
-  };
-
-  const handleDateChange = (dates) => {
-    setSelectedDates(dates);
+    window.scrollTo({ top: document.getElementById("booking").offsetTop, behavior: "smooth" });
   };
 
   return (
-    <div className="app">
+    <>
       <Header />
-
-      <section className="properties-section">
-        <h2 className="section-title">Propiedades destacadas</h2>
-        <PropertyList properties={properties} onReserve={handleReserve} />
-      </section>
-
-      <section className="calendar-events-section">
-        <div
-          className={`calendar-wrapper ${highlightCalendar ? "highlight" : ""}`}
-          ref={calendarRef}
-        >
-          <h2 className="section-title">Seleccioná tus fechas</h2>
-          <p className="section-subtitle">
-            Consulta disponibilidad y eventos locales
-          </p>
-          <CalendarComponent events={events} onDateChange={handleDateChange} />
-        </div>
-        <div className="events-wrapper">
-          <h2 className="section-title">Próximos eventos</h2>
-          <Events events={events} />
-        </div>
-      </section>
-
-      {selectedProperty && selectedDates[0] && (
-        <section className="booking-section">
-          <BookingForm property={selectedProperty} selectedDates={selectedDates} />
+      <main>
+        <section id="properties">
+          <h2>Departamentos Disponibles</h2>
+          <PropertyList properties={properties} onReserve={handleReserve} />
         </section>
-      )}
 
-      <section className="contact-section">
-        <h2 className="section-title">Contacto</h2>
-        <ContactForm />
-      </section>
+        <section id="booking">
+          <h2>Reserva tu estadía</h2>
+          {selectedProperty ? (
+            <>
+              <CalendarComponent selectedDates={selectedDates} onDateChange={setSelectedDates} />
+              <BookingForm property={selectedProperty} selectedDates={selectedDates} />
+            </>
+          ) : (
+            <p style={{ textAlign: "center" }}>Selecciona una propiedad para reservar.</p>
+          )}
+        </section>
 
-      <a
-        href="https://wa.me/5491157826522"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whatsapp-btn"
-      >
-        <FaWhatsapp />
-      </a>
-
-      <footer className="footer">
-        <p>© 2025 GoodPlace. Todos los derechos reservados.</p>
-      </footer>
-    </div>
+        <section id="contact">
+          <h2>Contacto</h2>
+          <ContactForm />
+        </section>
+      </main>
+    </>
   );
 }
+
+export default App;

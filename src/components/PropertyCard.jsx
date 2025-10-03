@@ -19,12 +19,8 @@ export default function PropertyCard({ property, onReserve }) {
         <h3>{property.title}</h3>
         <p className="muted">{property.subtitle}</p>
 
-        {/* Solo botón de reserva (sin enlace a Booking) */}
         <div className="actions">
-          <button
-            className="btn reserve-btn"
-            onClick={() => onReserve(property)}
-          >
+          <button className="btn reserve-btn" onClick={() => onReserve(property)}>
             Reservar
           </button>
         </div>
@@ -32,3 +28,4 @@ export default function PropertyCard({ property, onReserve }) {
     </div>
   );
 }
+

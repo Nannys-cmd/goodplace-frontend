@@ -1,12 +1,21 @@
-// Frontend/src/components/PropertyList.jsx
-import React from "react";
+//Frontend/src/components/PropertyList.jsx
+import React, { useEffect, useState } from "react";
 import PropertyCard from "./PropertyCard";
 import Slider from "react-slick";
 import "../styles/PropertyList.css";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-export default function PropertyList({ properties, onReserve }) {
+export default function PropertyList({ onReserve }) {
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    fetch(import.meta.env.VITE_API_URL + "/properties")
+      .then((res) => res.json())
+      .then((data) => setProperties(data))
+      .catch(console.error);
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
