@@ -83,3 +83,10 @@
     display: none; /* para móviles se puede ocultar las flechas */
   }
 }
+
+@media (max-width: 768px) {
+  .properties-carousel .slick-slide > div {
+    display: flex;
+    justify-content: center;
+  }
+}
