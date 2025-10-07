@@ -1,6 +1,11 @@
+/* Frontend/src/styles/Calendar.css*/
 .calendar-wrapper {
   max-width: 400px;
-  margin: auto;
+  margin: 2rem auto; /* deja espacio arriba y abajo */
+  padding: 1rem;
+  background: var(--color-primario);
+  border-radius: 12px;
+  box-shadow: var(--sombra);
 }
 
 .react-calendar {
@@ -46,4 +51,21 @@
   font-size: 1.2rem;
   text-align: center;
   line-height: 1;
+}
+
+.calendar-wrapper {
+  max-width: 400px;
+  margin: 2rem auto; /* deja espacio arriba y abajo */
+  padding: 1rem;
+  background: var(--color-primario);
+  border-radius: 12px;
+  box-shadow: var(--sombra);
+}
+
+.selected-dates {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
 }

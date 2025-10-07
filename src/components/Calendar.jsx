@@ -28,7 +28,12 @@ export default function CalendarComponent({ events = [], onDateChange }) {
   };
 
   return (
-    <div className="calendar-component">
+    <div className="calendar-wrapper">
+      <div className="selected-dates">
+        {selectedDates[0] && selectedDates[1]
+          ? `Fechas elegidas: ${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
+          : "Selecciona fechas"}
+      </div>
       <Calendar
         selectRange={true}
         onChange={handleChange}
@@ -38,4 +43,5 @@ export default function CalendarComponent({ events = [], onDateChange }) {
       />
     </div>
   );
+
 }
