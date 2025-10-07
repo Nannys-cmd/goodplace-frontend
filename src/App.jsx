@@ -1,4 +1,4 @@
-//Frontend/src/App.jsx
+// App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";

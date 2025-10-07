@@ -1,13 +1,14 @@
+/* --- Card base --- */
 .card {
-  border-radius: var(--radius);
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: var(--sombra);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;       /* ✔ se asegura de ocupar todo el alto */
-  min-height: 360px;  /* ✔ fuerza un mínimo igualado (ajustá este valor a gusto) */
+  height: 100%;
+  min-height: 360px;
 }
 
 .card:hover {
@@ -15,9 +16,7 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
-.image-wrapper {
-  position: relative;
-}
+.image-wrapper { position: relative; }
 
 .image-wrapper img {
   width: 100%;
@@ -41,7 +40,6 @@
   border-radius: 6px;
   font-size: 0.85rem;
 }
-
 .status.available { background: rgba(0,128,0,0.8); }
 .status.unavailable { background: rgba(200,0,0,0.8); }
 
@@ -63,25 +61,16 @@
   justify-content: space-between;
 }
 
-.card-content h3 {
-  font-family: var(--fuente-titulos);
-  margin: 0 0 15px;
-  font-size: 1.2rem;
-  color: #222;
-}
-
-.card-content .muted {
-  color: #666;
-  margin: 0 0 10px;
-  font-size: 0.9rem;
-}
+.card-content h3 { font-family: 'Arial', sans-serif; margin:0 0 15px; font-size:1.2rem; color:#222; }
+.card-content .muted { color:#666; margin:0 0 10px; font-size:0.9rem; }
 
 .actions {
   display: flex;
-  justify-content: center; /* centra el contenido horizontalmente */
+  flex-direction: column;
+  justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-top: auto; /* empuja hacia abajo si querés que quede al final */
+  align-items: center;
+  margin-top: auto;
 }
 
 .actions .btn {
@@ -90,36 +79,65 @@
   padding: 8px 14px;
   border-radius: 6px;
   font-size: 0.9rem;
+  cursor: pointer;
   transition: background 0.2s ease;
+  text-decoration: none;
 }
 
 .actions .btn:hover { background: #005a99; }
 
-.property-card {
+.reserve-btn { font-weight: bold; }
+.map-btn { background: #28a745; }
+.map-btn:hover { background: #1e7e34; }
+
+/* 🌍 Modal del mapa */
+.map-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center; /* centra horizontalmente */
-  text-align: center;
-  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
 }
 
-.reserve-btn {
-  margin-top: 1rem;
-  padding: 0.7rem 1.5rem;
-  background: #0077b6;
-  color: #fff;
-  font-weight: bold;
+.map-modal {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 700px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: scaleIn 0.3s ease;
+}
+
+.close-map {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: #ff4b4b;
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  width: 80%;          /* ocupa 80% del ancho de la tarjeta */
-  max-width: 200px;    /* pero no más de 200px */
+  transition: 0.2s;
 }
 
-.reserve-btn:hover {
-  background: #023e8a; /* tono más oscuro al pasar */
-  transform: scale(1.05);
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+.close-map:hover {
+  background: #d40000;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

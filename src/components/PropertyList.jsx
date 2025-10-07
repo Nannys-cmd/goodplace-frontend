@@ -1,21 +1,12 @@
-//Frontend/src/components/PropertyList.jsx
-import React, { useEffect, useState } from "react";
-import PropertyCard from "./PropertyCard";
+// Frontend/src/components/PropertyList.jsx
+import React from "react";
 import Slider from "react-slick";
-import "../styles/PropertyList.css";
+import PropertyCard from "./PropertyCard";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import "../styles/PropertyList.css";
 
-export default function PropertyList({ onReserve }) {
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL + "/properties")
-      .then((res) => res.json())
-      .then((data) => setProperties(data))
-      .catch(console.error);
-  }, []);
-
+export default function PropertyList({ properties, onReserve }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -32,7 +23,7 @@ export default function PropertyList({ onReserve }) {
     <div className="properties-carousel">
       <Slider {...settings}>
         {properties.map((p) => (
-          <div key={p.id}>
+          <div key={p.id} className="property-slide">
             <PropertyCard property={p} onReserve={onReserve} />
           </div>
         ))}
