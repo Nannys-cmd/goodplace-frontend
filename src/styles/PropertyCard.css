@@ -4,11 +4,21 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 360px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  flex: 1;          /* fuerza que todas las cards ocupen el mismo ancho */
+  min-width: 250px;  /* ancho mínimo */
+  min-height: 400px; /* altura mínima uniforme */
+}
+
+.card-content {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* mantiene el botón abajo */
 }
 
 .card:hover {
@@ -16,7 +26,9 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
-.image-wrapper { position: relative; }
+.image-wrapper {
+  position: relative;
+}
 
 .image-wrapper img {
   width: 100%;
@@ -40,6 +52,7 @@
   border-radius: 6px;
   font-size: 0.85rem;
 }
+
 .status.available { background: rgba(0,128,0,0.8); }
 .status.unavailable { background: rgba(200,0,0,0.8); }
 
@@ -53,16 +66,18 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.card-content {
-  padding: 15px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.card-content h3 {
+  font-family: 'Arial', sans-serif;
+  margin: 0 0 15px;
+  font-size: 1.2rem;
+  color: #222;
 }
 
-.card-content h3 { font-family: 'Arial', sans-serif; margin:0 0 15px; font-size:1.2rem; color:#222; }
-.card-content .muted { color:#666; margin:0 0 10px; font-size:0.9rem; }
+.card-content .muted {
+  color: #666;
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
 
 .actions {
   display: flex;
@@ -90,7 +105,7 @@
 .map-btn { background: #28a745; }
 .map-btn:hover { background: #1e7e34; }
 
-/* 🌍 Modal del mapa */
+/* Modal del mapa */
 .map-modal-overlay {
   position: fixed;
   inset: 0;
@@ -128,9 +143,7 @@
   transition: 0.2s;
 }
 
-.close-map:hover {
-  background: #d40000;
-}
+.close-map:hover { background: #d40000; }
 
 @keyframes fadeIn {
   from { opacity: 0; }

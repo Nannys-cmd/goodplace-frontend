@@ -2,16 +2,30 @@
 /* Carousel wrapper */
 .properties-carousel {
   margin: 1.5rem 0;
+  overflow: visible; /* importante para que las flechas se vean fuera de las cards */
+  min-height: 420px; /* asegura que las flechas estén visibles */
 }
 
 .properties-carousel .slick-slide > div {
   height: 100%;
-  display: flex;          /* estira las cards */
-  align-items: stretch;
+  display: flex;
+  align-items: stretch; /* estira las cards */
 }
 
 .properties-carousel .card {
-  flex: 1;               /* hace que cada card se estire igual */
+  flex: 1 0 auto; /* todas las cards igual de grandes */
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.properties-grid .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* estira la card para que todas tengan la misma altura */
 }
 
 /* Dots position */
@@ -21,7 +35,7 @@
 
 /* Arrows */
 .slick-prev,
-.slick-next { 
+.slick-next {
   z-index: 2;
   top: 50%;
   transform: translateY(-50%);
@@ -37,13 +51,35 @@
 
 .slick-prev:hover:before,
 .slick-next:hover:before {
-  color: #005999 !important; /* azul más oscuro */
+  color: #005999 !important;
 }
 
-.slick-prev {
-  left: -40px !important; /* mueve la flecha izquierda hacia afuera */
+.slick-prev { left: -50px !important; }
+.slick-next { right: -50px !important; }
+
+@media (max-width: 1024px) {
+  .properties-carousel {
+    min-height: auto;
+  }
 }
 
-.slick-next {
-  right: -40px !important; /* mueve la flecha derecha hacia afuera */
+@media (max-width: 768px) {
+  .properties-grid {
+    grid-template-columns: 1fr; /* una card por fila */
+  }
+
+  .properties-carousel .slick-prev {
+    left: -30px !important;
+  }
+
+  .properties-carousel .slick-next {
+    right: -30px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .properties-carousel .slick-prev,
+  .properties-carousel .slick-next {
+    display: none; /* para móviles se puede ocultar las flechas */
+  }
 }

@@ -29,6 +29,7 @@ export default function ContactForm() {
         value={formData.name}
         onChange={handleChange}
         required
+        autoComplete="name"
       />
 
       <label htmlFor="email">Email</label>
@@ -39,6 +40,7 @@ export default function ContactForm() {
         value={formData.email}
         onChange={handleChange}
         required
+        autoComplete="email"
       />
 
       <label htmlFor="message">Mensaje</label>
@@ -49,6 +51,7 @@ export default function ContactForm() {
         value={formData.message}
         onChange={handleChange}
         required
+        autoComplete="off"
       ></textarea>
 
       <button type="submit">Enviar</button>

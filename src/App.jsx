@@ -1,10 +1,12 @@
-// App.jsx
+// Frontend/src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";
 import BookingForm from "./components/BookingForm";
 import ContactForm from "./components/ContactForm";
 import CalendarComponent from "./components/Calendar";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import "../src/styles/styles.css";
 
 function App() {
@@ -21,20 +23,23 @@ function App() {
 
   const handleReserve = (property) => {
     setSelectedProperty(property);
-    window.scrollTo({ top: document.getElementById("booking").offsetTop, behavior: "smooth" });
+    const bookingSection = document.getElementById("booking");
+    if (bookingSection) {
+      window.scrollTo({ top: bookingSection.offsetTop, behavior: "smooth" });
+    }
   };
 
   return (
-    <>
+    <div className="app">
       <Header />
       <main>
-        <section id="properties">
-          <h2>Departamentos Disponibles</h2>
+        <section id="properties" className="properties-section">
+          <h2 className="section-title">Departamentos Disponibles</h2>
           <PropertyList properties={properties} onReserve={handleReserve} />
         </section>
 
-        <section id="booking">
-          <h2>Reserva tu estadía</h2>
+        <section id="booking" className="booking-section">
+          <h2 className="section-title">Reserva tu estadía</h2>
           {selectedProperty ? (
             <>
               <CalendarComponent selectedDates={selectedDates} onDateChange={setSelectedDates} />
@@ -45,12 +50,16 @@ function App() {
           )}
         </section>
 
-        <section id="contact">
-          <h2>Contacto</h2>
+        <section id="contact" className="contact-section">
+          <h2 className="section-title">Contacto</h2>
           <ContactForm />
         </section>
       </main>
-    </>
+
+      <footer className="footer">
+        <p>&copy; 2025 Goodplace. Todos los derechos reservados.</p>
+      </footer>
+    </div>
   );
 }
 
