@@ -1,4 +1,3 @@
-/* Frontend/src/styles/PropertyCard.css */
 .card {
   border-radius: 10px;
   overflow: hidden;
@@ -7,10 +6,9 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  flex: 1;          /* fuerza que todas las cards ocupen el mismo ancho */
-  min-width: 250px;  /* ancho mínimo */
-  min-height: 400px; /* altura mínima uniforme */
+  flex: 1;
+  min-width: 250px;
+  min-height: 400px;
 }
 
 .card-content {
@@ -18,7 +16,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* mantiene el botón abajo */
+  justify-content: space-between;
 }
 
 .card:hover {
@@ -66,18 +64,8 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.card-content h3 {
-  font-family: 'Arial', sans-serif;
-  margin: 0 0 15px;
-  font-size: 1.2rem;
-  color: #222;
-}
-
-.card-content .muted {
-  color: #666;
-  margin: 0 0 10px;
-  font-size: 0.9rem;
-}
+.card-content h3 { font-family: 'Arial', sans-serif; margin: 0 0 15px; font-size: 1.2rem; color: #222; }
+.card-content .muted { color: #666; margin: 0 0 10px; font-size: 0.9rem; }
 
 .actions {
   display: flex;
@@ -96,7 +84,6 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.2s ease;
-  text-decoration: none;
 }
 
 .actions .btn:hover { background: #005a99; }
@@ -145,12 +132,5 @@
 
 .close-map:hover { background: #d40000; }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
