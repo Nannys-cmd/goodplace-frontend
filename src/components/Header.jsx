@@ -12,6 +12,13 @@ export default function Header() {
   ];
 
   const [current, setCurrent] = useState(0);
+  const [searchData, setSearchData] = useState({
+    location: "",
+    checkIn: "",
+    checkOut: "",
+    guests: 1
+  });
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,6 +26,24 @@ export default function Header() {
     }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSearchData({ ...searchData, [name]: value });
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const allProperties = [
+      { name: "Departamento Centro", description: "2 habitaciones, 1 baño" },
+      { name: "Casa Playa", description: "3 habitaciones, piscina" },
+      { name: "Monoambiente Moderno", description: "Cerca del centro" }
+    ];
+    const filtered = allProperties.filter(p =>
+      p.name.toLowerCase().includes(searchData.location.toLowerCase())
+    );
+    setSearchResults(filtered);
+  };
 
   return (
     <header className="header">
@@ -36,12 +61,71 @@ export default function Header() {
             <h1>GoodPlace</h1>
           </div>
 
-          <div className="search-demo">
-            <input type="text" placeholder="Ciudad o barrio" />
-            <input type="date" />
-            <input type="number" placeholder="Huéspedes" min="1" />
-            <button className="btn">Buscar</button>
-          </div>
+          <form className="search-demo" onSubmit={handleSearch}>
+            <div className="input-group">
+              <label htmlFor="location">Ciudad o barrio</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={searchData.location}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="checkIn">Entrada</label>
+              <input
+                type="date"
+                id="checkIn"
+                name="checkIn"
+                value={searchData.checkIn}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="checkOut">Salida</label>
+              <input
+                type="date"
+                id="checkOut"
+                name="checkOut"
+                value={searchData.checkOut}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="guests">Huéspedes</label>
+              <input
+                type="number"
+                id="guests"
+                name="guests"
+                min="1"
+                value={searchData.guests}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="btn">Buscar</button>
+          </form>
+
+          {searchResults.length > 0 && (
+            <div className="search-results">
+              <ul>
+                {searchResults.map((prop, idx) => (
+                  <li key={idx}>
+                    <h3>{prop.name}</h3>
+                    <p>{prop.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </header>

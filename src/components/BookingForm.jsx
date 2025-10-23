@@ -1,4 +1,3 @@
-//Frontend/src/components/BookingForm.jsx
 import React, { useState } from "react";
 import "../styles/BookingForm.css";
 
@@ -26,7 +25,6 @@ export default function BookingForm({ property, selectedDates }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!formData.acceptPolicy) {
       return alert("Debes aceptar la política de protección de datos.");
     }
@@ -42,7 +40,7 @@ export default function BookingForm({ property, selectedDates }) {
       fd.append("propertyId", property.id);
       fd.append("start", selectedDates[0].toISOString().split("T")[0]);
       fd.append("end", selectedDates[1].toISOString().split("T")[0]);
-      if (formData.dni) fd.append("dniFile", formData.dni); // coincide con backend
+      if (formData.dni) fd.append("dniFile", formData.dni);
 
       const res = await fetch(import.meta.env.VITE_API_URL + "/bookings", {
         method: "POST",
@@ -50,14 +48,10 @@ export default function BookingForm({ property, selectedDates }) {
       });
 
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Error al crear la reserva");
-      }
+      if (!res.ok) throw new Error(data.error || "Error al crear la reserva");
 
       alert("Reserva creada con éxito!");
       window.location.href = data.whatsappUrl;
-
     } catch (err) {
       console.error(err);
       alert("Ocurrió un error al enviar la reserva ❌");
@@ -69,7 +63,9 @@ export default function BookingForm({ property, selectedDates }) {
   const formatDates = () => {
     if (!selectedDates) return "";
     const [start, end] = selectedDates;
-    return start && end ? `Del ${start.toLocaleDateString()} al ${end.toLocaleDateString()}` : "Seleccioná tus fechas";
+    return start && end
+      ? `Del ${start.toLocaleDateString()} al ${end.toLocaleDateString()}`
+      : "Seleccioná tus fechas";
   };
 
   return (
@@ -113,9 +109,8 @@ export default function BookingForm({ property, selectedDates }) {
           type="file"
           id="dniFile"
           name="dniFile"
-          accept="image/*"
           onChange={handleFileChange}
-          required
+          accept=".jpg,.jpeg,.png,.pdf"
         />
       </div>
 
@@ -129,24 +124,12 @@ export default function BookingForm({ property, selectedDates }) {
           required
         />
         <label htmlFor="acceptPolicy">
-          He leído y acepto la{" "}
-          <a href="/politica-privacidad.html" target="_blank" rel="noopener noreferrer">
-            <strong>Política de Protección de Datos</strong>
-          </a>
-          .
+          Acepto la política de protección de datos
         </label>
       </div>
 
-      <button type="submit" className="btn-submit" disabled={loading}>
-        {loading ? "Enviando..." : "Pagar 10% y Reservar"}
-      </button>
-
-      <button
-        type="button"
-        className="btn-back"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        Volver al inicio
+      <button className="btn-submit" type="submit" disabled={loading}>
+        {loading ? "Enviando..." : "Reservar"}
       </button>
     </form>
   );

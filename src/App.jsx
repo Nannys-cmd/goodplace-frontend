@@ -1,12 +1,9 @@
-// Frontend/src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";
 import BookingForm from "./components/BookingForm";
 import ContactForm from "./components/ContactForm";
 import CalendarComponent from "./components/Calendar";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 import "../src/styles/styles.css";
 
 function App() {
@@ -31,7 +28,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header setFilteredProperties={setProperties} properties={properties} />
       <main>
         <section id="properties" className="properties-section">
           <h2 className="section-title">Departamentos Disponibles</h2>
@@ -42,8 +39,14 @@ function App() {
           <h2 className="section-title">Reserva tu estadía</h2>
           {selectedProperty ? (
             <>
-              <CalendarComponent selectedDates={selectedDates} onDateChange={setSelectedDates} />
-              <BookingForm property={selectedProperty} selectedDates={selectedDates} />
+              <CalendarComponent
+                selectedDates={selectedDates}
+                onDateChange={setSelectedDates}
+              />
+              <BookingForm
+                property={selectedProperty}
+                selectedDates={selectedDates}
+              />
             </>
           ) : (
             <p style={{ textAlign: "center" }}>Selecciona una propiedad para reservar.</p>

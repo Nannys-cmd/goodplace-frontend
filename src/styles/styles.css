@@ -1,8 +1,7 @@
-/* Frontend/src/styles/styles.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap');
 @import './Variables.css';
 
-/* Reset global */
+/* ---------------- Reset global ---------------- */
 * {
   margin: 0;
   padding: 0;
@@ -31,7 +30,7 @@ a {
   color: inherit;
 }
 
-/* Botones generales */
+/* ---------------- Botones generales ---------------- */
 .btn {
   display: inline-block;
   padding: 8px 14px;
@@ -74,7 +73,6 @@ a {
   opacity: 1;
 }
 
-/* Overlay transparente para que el slider se vea */
 .overlay {
   position: absolute;
   inset: 0;
@@ -89,7 +87,6 @@ a {
   background: transparent;
 }
 
-/* Título / Marca */
 .brand h1 {
   font-size: 3rem;
   margin-bottom: 1.5rem;
@@ -97,36 +94,58 @@ a {
   text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
 }
 
-/* Buscador */
+/* ---------------- Header Search ---------------- */
 .search-demo {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 1rem;
-  border-radius: 10px;
   justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.search-demo input,
-.search-demo button {
-  padding: 0.6rem 1rem;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.search-demo label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.search-demo input {
+  width: 100%;
+  padding: 8px;
   border-radius: 6px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   font-size: 0.95rem;
 }
 
+/* Botón buscar */
 .search-demo button {
-  background-color: #ff6b6b;
+  align-self: center;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  background-color: #0097b2;
   color: white;
   font-weight: bold;
   cursor: pointer;
   border: none;
+  border-radius: 8px;
   transition: 0.3s ease;
 }
 
 .search-demo button:hover {
-  background-color: #ff4b4b;
+  background-color: #007a8d;
 }
 
 /* ---------------- Secciones ---------------- */
@@ -197,7 +216,7 @@ a {
   color: #222;
 }
 
-/* ---------------- Footer bonito y fijo al final ---------------- */
+/* ---------------- Footer ---------------- */
 .footer {
   background: var(--color-acento);
   color: var(--color-texto-claro);
@@ -206,7 +225,7 @@ a {
   font-size: 0.9rem;
 }
 
-/* ---------------- Botón WhatsApp flotante ---------------- */
+/* ---------------- WhatsApp flotante ---------------- */
 .whatsapp-btn {
   position: fixed;
   bottom: 20px;
@@ -227,18 +246,19 @@ a {
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 768px) {
-  .calendar-events-section {
-    grid-template-columns: 1fr;
-  }
-
   .search-demo {
     flex-direction: column;
+    align-items: stretch;
     width: 90%;
-    margin: 0 auto;
+    padding: 1rem;
   }
 
-  .search-demo input,
+  .search-demo .input-group {
+    width: 100%;
+  }
+
   .search-demo button {
     width: 100%;
+    margin-top: 0.5rem;
   }
 }

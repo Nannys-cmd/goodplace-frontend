@@ -1,9 +1,10 @@
-// src/data/properties.js
+// Frontend/src/data/properties.js
 export const properties = [
   {
     id: 1,
     title: "Amazing wide apartment in the heart of Palermo",
-    subtitle: "Palermo · Moderno y amplio",
+    subtitle: "Palermo · 4 personas (1 matrimonial, 2 individuales)",
+    beds: "1 matrimonial, 2 individuales",
     img: "/sample1.jpg",
     available: true,
     price: 255,
@@ -12,7 +13,8 @@ export const properties = [
   {
     id: 2,
     title: "Downtown Suite Self Check In",
-    subtitle: "Centro · Cómodo",
+    subtitle: "Centro · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample2.jpg",
     available: true,
     price: 314,
@@ -21,16 +23,18 @@ export const properties = [
   {
     id: 3,
     title: "Hermoso departamento en Palermo Hollywood",
-    subtitle: "Palermo Hollywood · Estilo moderno",
+    subtitle: "Palermo Hollywood · 4 personas (2 matrimoniales)",
+    beds: "2 matrimoniales",
     img: "/sample3.jpg",
     available: true,
     price: 380,
-    mapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.0362599074956!2d-58.43518512485728!3d-34.57794905613667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb591309c5e55%3A0x9d8627a6a3e39cc7!2sParaguay%205379%204a%2C%20C1425BTI%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759797081044!5m2!1ses-419!2sar" 
+    mapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.0362599074956!2d-58.43518512485728!3d-34.57794905613667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb591309c5e55%3A0x9d8627a6a3e39cc7!2sParaguay%205379%204a%2C%20C1425BTI%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759797081044!5m2!1ses-419!2sar"
   },
   {
     id: 4,
     title: "Nuevo Belgrano",
-    subtitle: "Belgrano · Nuevo y luminoso",
+    subtitle: "Belgrano · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample4.jpg",
     available: true,
     price: 350,
@@ -39,7 +43,8 @@ export const properties = [
   {
     id: 5,
     title: "Palermo Hollywood Skyline",
-    subtitle: "Palermo Hollywood · Vista panorámica",
+    subtitle: "Palermo Hollywood · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample5.jpg",
     available: true,
     price: 420,
@@ -48,7 +53,8 @@ export const properties = [
   {
     id: 6,
     title: "Palermo Soho con Jardín",
-    subtitle: "Palermo Soho · Con jardín privado",
+    subtitle: "Palermo Soho · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample6.jpg",
     available: true,
     price: 440,
@@ -57,7 +63,8 @@ export const properties = [
   {
     id: 7,
     title: "Park View Rooftop ArtDeco Design",
-    subtitle: "Recoleta · Terraza con vista al parque",
+    subtitle: "Recoleta · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample7.jpg",
     available: true,
     price: 625,
@@ -66,10 +73,11 @@ export const properties = [
   {
     id: 8,
     title: "Suite Palermo",
-    subtitle: "Palermo · Cómodo y práctico",
+    subtitle: "Palermo · 2 personas (1 matrimonial)",
+    beds: "1 matrimonial",
     img: "/sample8.jpg",
     available: true,
     price: 314,
-    mapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.848338885548!2d-58.41061992485697!3d-34.58270385638768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb57ce32aefef%3A0xd52c1032b9a206be!2sC.%20Silvio%20L.%20Ruggeri%202347%2C%20C1425DLA%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759797493319!5m2!1ses-419!2sar" 
+    mapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.848338885548!2d-58.41061992485697!3d-34.58270385638768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb57ce32aefef%3A0xd52c1032b9a206be!2sC.%20Silvio%20L.%20Ruggeri%202347%2C%20C1425DLA%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759797493319!5m2!1ses-419!2sar"
   }
 ];

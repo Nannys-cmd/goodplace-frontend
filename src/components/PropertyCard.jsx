@@ -5,7 +5,6 @@ export default function PropertyCard({ property, onReserve }) {
   const [showMap, setShowMap] = useState(false);
   const toggleMap = () => setShowMap(!showMap);
 
-  // Precio formateado en USD
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -37,10 +36,9 @@ export default function PropertyCard({ property, onReserve }) {
         </div>
       </div>
 
-      {/* Modal del mapa */}
       {showMap && (
         <div className="map-modal-overlay" onClick={toggleMap}>
-          <div className="map-modal" onClick={e => e.stopPropagation()}>
+          <div className="map-modal" onClick={(e) => e.stopPropagation()}>
             <iframe
               src={property.mapLink}
               width="100%"

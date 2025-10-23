@@ -1,7 +1,6 @@
-/* Frontend/src/styles/Calendar.css*/
 .calendar-wrapper {
   max-width: 400px;
-  margin: 2rem auto; /* deja espacio arriba y abajo */
+  margin: 2rem auto;
   padding: 1rem;
   background: var(--color-primario);
   border-radius: 12px;
@@ -44,22 +43,6 @@
   background-color: #ffe0e0 !important;
   color: #a10000 !important;
   border-radius: 6px;
-}
-
-.event-dot {
-  color: #0097b2;
-  font-size: 1.2rem;
-  text-align: center;
-  line-height: 1;
-}
-
-.calendar-wrapper {
-  max-width: 400px;
-  margin: 2rem auto; /* deja espacio arriba y abajo */
-  padding: 1rem;
-  background: var(--color-primario);
-  border-radius: 12px;
-  box-shadow: var(--sombra);
 }
 
 .selected-dates {
