@@ -1,3 +1,4 @@
+// Frontend/src/components/Header.jsx
 import React, { useEffect, useState } from "react";
 import "../styles/styles.css";
 
@@ -16,10 +17,11 @@ export default function Header() {
     location: "",
     checkIn: "",
     checkOut: "",
-    guests: 1
+    guests: 1,
   });
   const [searchResults, setSearchResults] = useState([]);
 
+  // 🔄 Rotación automática del slider
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -27,22 +29,32 @@ export default function Header() {
     return () => clearInterval(interval);
   }, [images.length]);
 
+  // 🔄 Captura de inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSearchData({ ...searchData, [name]: value });
   };
 
-  const handleSearch = (e) => {
+  // 🔎 Buscar propiedades en backend
+  const handleSearch = async (e) => {
     e.preventDefault();
-    const allProperties = [
-      { name: "Departamento Centro", description: "2 habitaciones, 1 baño" },
-      { name: "Casa Playa", description: "3 habitaciones, piscina" },
-      { name: "Monoambiente Moderno", description: "Cerca del centro" }
-    ];
-    const filtered = allProperties.filter(p =>
-      p.name.toLowerCase().includes(searchData.location.toLowerCase())
-    );
-    setSearchResults(filtered);
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL + "/properties");
+      const data = await res.json();
+
+      // Filtro básico: ubicación y huéspedes
+      const filtered = data.filter((p) => {
+        const matchLocation = p.subtitle.toLowerCase().includes(searchData.location.toLowerCase()) 
+                           || p.title.toLowerCase().includes(searchData.location.toLowerCase());
+        const matchGuests = p.capacity >= parseInt(searchData.guests);
+
+        return matchLocation && matchGuests;
+      });
+
+      setSearchResults(filtered);
+    } catch (err) {
+      console.error("❌ Error buscando propiedades:", err);
+    }
   };
 
   return (
@@ -61,6 +73,7 @@ export default function Header() {
             <h1>GoodPlace</h1>
           </div>
 
+          {/* 🔎 Barra de búsqueda */}
           <form className="search-demo" onSubmit={handleSearch}>
             <div className="input-group">
               <label htmlFor="location">Ciudad o barrio</label>
@@ -70,7 +83,6 @@ export default function Header() {
                 name="location"
                 value={searchData.location}
                 onChange={handleChange}
-                required
               />
             </div>
 
@@ -82,7 +94,6 @@ export default function Header() {
                 name="checkIn"
                 value={searchData.checkIn}
                 onChange={handleChange}
-                required
               />
             </div>
 
@@ -94,11 +105,10 @@ export default function Header() {
                 name="checkOut"
                 value={searchData.checkOut}
                 onChange={handleChange}
-                required
               />
             </div>
 
-            <div className="input-group">
+            <div className="input-group small">
               <label htmlFor="guests">Huéspedes</label>
               <input
                 type="number"
@@ -107,20 +117,22 @@ export default function Header() {
                 min="1"
                 value={searchData.guests}
                 onChange={handleChange}
-                required
               />
             </div>
 
             <button type="submit" className="btn">Buscar</button>
           </form>
 
+          {/* 📌 Resultados */}
           {searchResults.length > 0 && (
             <div className="search-results">
               <ul>
-                {searchResults.map((prop, idx) => (
-                  <li key={idx}>
-                    <h3>{prop.name}</h3>
-                    <p>{prop.description}</p>
+                {searchResults.map((prop) => (
+                  <li key={prop.id}>
+                    <h3>{prop.title}</h3>
+                    <p>{prop.subtitle}</p>
+                    <p><strong>Capacidad:</strong> {prop.capacity} personas ({prop.beds})</p>
+                    <p><strong>Precio:</strong> ${prop.price}</p>
                   </li>
                 ))}
               </ul>
