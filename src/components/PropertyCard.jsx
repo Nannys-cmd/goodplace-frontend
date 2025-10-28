@@ -1,15 +1,10 @@
+// Frontend/src/components/PropertyCard.jsx
+// Frontend/src/components/PropertyCard.jsx
 import React, { useState } from "react";
 import "../styles/PropertyCard.css";
 
-export default function PropertyCard({ property, onReserve }) {
+export default function PropertyCard({ property }) {
   const [showMap, setShowMap] = useState(false);
-  const toggleMap = () => setShowMap(!showMap);
-
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-  }).format(property.price);
 
   return (
     <div className="card">
@@ -19,37 +14,34 @@ export default function PropertyCard({ property, onReserve }) {
           <span className={`status ${property.available ? "available" : "unavailable"}`}>
             {property.available ? "Disponible" : "No disponible"}
           </span>
-          <span className="price-tag">{formattedPrice}/noche</span>
+          <span className="price-tag">${property.price}</span>
         </div>
       </div>
 
       <div className="card-content">
         <h3>{property.title}</h3>
         <p className="muted">{property.subtitle}</p>
+
         <div className="actions">
-          <button className="btn reserve-btn" onClick={() => onReserve(property)}>
-            Reservar
-          </button>
-          <button className="btn map-btn" onClick={toggleMap}>
-            Ver Mapa
-          </button>
+          <button className="btn reserve-btn">Reservar</button>
+          <button className="btn map-btn" onClick={() => setShowMap(true)}>Ver mapa</button>
         </div>
       </div>
 
+      {/* Modal con mapa */}
       {showMap && (
-        <div className="map-modal-overlay" onClick={toggleMap}>
-          <div className="map-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="map-modal-overlay">
+          <div className="map-modal">
+            <button className="close-map" onClick={() => setShowMap(false)}>×</button>
             <iframe
               src={property.mapLink}
               width="100%"
               height="400"
-              style={{ border: 0, borderRadius: "12px" }}
-              allowFullScreen
+              style={{ border: 0 }}
+              allowFullScreen=""
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Mapa de la propiedad"
+              title="Mapa"
             ></iframe>
-            <button className="close-map" onClick={toggleMap}>×</button>
           </div>
         </div>
       )}

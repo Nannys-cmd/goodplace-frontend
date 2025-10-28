@@ -1,6 +1,8 @@
 // Frontend/src/components/Header.jsx
 import React, { useEffect, useState } from "react";
+import PropertyCard from "./PropertyCard";
 import "../styles/styles.css";
+import "../styles/PropertyCard.css";
 
 export default function Header() {
   const images = [
@@ -9,7 +11,7 @@ export default function Header() {
     "/sampleBA3.jpg",
     "/sampleBA4.jpg",
     "/sampleBA5.jpg",
-    "/sampleBA6.jpg"
+    "/sampleBA6.jpg",
   ];
 
   const [current, setCurrent] = useState(0);
@@ -20,6 +22,7 @@ export default function Header() {
     guests: 1,
   });
   const [searchResults, setSearchResults] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   // 🔄 Rotación automática del slider
   useEffect(() => {
@@ -42,16 +45,17 @@ export default function Header() {
       const res = await fetch(import.meta.env.VITE_API_URL + "/properties");
       const data = await res.json();
 
-      // Filtro básico: ubicación y huéspedes
       const filtered = data.filter((p) => {
-        const matchLocation = p.subtitle.toLowerCase().includes(searchData.location.toLowerCase()) 
-                           || p.title.toLowerCase().includes(searchData.location.toLowerCase());
+        const matchLocation =
+          p.subtitle.toLowerCase().includes(searchData.location.toLowerCase()) ||
+          p.title.toLowerCase().includes(searchData.location.toLowerCase());
         const matchGuests = p.capacity >= parseInt(searchData.guests);
 
         return matchLocation && matchGuests;
       });
 
       setSearchResults(filtered);
+      setShowModal(true); // 👈 mostrar modal
     } catch (err) {
       console.error("❌ Error buscando propiedades:", err);
     }
@@ -122,24 +126,29 @@ export default function Header() {
 
             <button type="submit" className="btn">Buscar</button>
           </form>
-
-          {/* 📌 Resultados */}
-          {searchResults.length > 0 && (
-            <div className="search-results">
-              <ul>
-                {searchResults.map((prop) => (
-                  <li key={prop.id}>
-                    <h3>{prop.title}</h3>
-                    <p>{prop.subtitle}</p>
-                    <p><strong>Capacidad:</strong> {prop.capacity} personas ({prop.beds})</p>
-                    <p><strong>Precio:</strong> ${prop.price}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </div>
+
+      {/* 📌 Modal con resultados */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="modal-close" onClick={() => setShowModal(false)}>
+              ✖
+            </button>
+            <h2>Resultados de búsqueda</h2>
+            {searchResults.length > 0 ? (
+              <div className="results-grid">
+                {searchResults.map((prop) => (
+                  <PropertyCard key={prop.id} property={prop} />
+                ))}
+              </div>
+            ) : (
+              <p>No se encontraron resultados.</p>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
