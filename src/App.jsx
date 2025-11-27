@@ -1,3 +1,4 @@
+// Frontend/src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import PropertyList from "./components/PropertyList";
@@ -10,49 +11,102 @@ function App() {
   const [properties, setProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedDates, setSelectedDates] = useState([null, null]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Cargar propiedades desde el backend
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL + "/properties")
-      .then((res) => res.json())
-      .then((data) => setProperties(data))
-      .catch((err) => console.error(err));
+    async function loadProperties() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/properties`
+        );
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || "No se pudieron cargar las propiedades");
+        }
+
+        setProperties(data);
+      } catch (err) {
+        console.error(err);
+        setError("Hubo un problema al cargar las propiedades.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProperties();
   }, []);
 
+  // Cuando haces clic en "Reservar" en una card
   const handleReserve = (property) => {
     setSelectedProperty(property);
-    const bookingSection = document.getElementById("booking");
-    if (bookingSection) {
-      window.scrollTo({ top: bookingSection.offsetTop, behavior: "smooth" });
+    setSelectedDates([null, null]);
+
+    const section = document.getElementById("booking");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  const handleDateChange = (range) => {
+    setSelectedDates(range);
   };
 
   return (
     <div className="app">
-      <Header setFilteredProperties={setProperties} properties={properties} />
+      <Header />
+
       <main>
+        {/* Listado de propiedades */}
         <section id="properties" className="properties-section">
-          <h2 className="section-title">Departamentos Disponibles</h2>
-          <PropertyList properties={properties} onReserve={handleReserve} />
+          <h2 className="section-title">Propiedades disponibles</h2>
+
+          {loading && <p>Cargando propiedades...</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          {!loading && !error && (
+            <PropertyList
+              properties={properties}
+              onReserve={handleReserve}
+            />
+          )}
         </section>
 
+        {/* Sección de reserva */}
         <section id="booking" className="booking-section">
-          <h2 className="section-title">Reserva tu estadía</h2>
-          {selectedProperty ? (
+          <h2 className="section-title">Reservar</h2>
+
+          {!selectedProperty ? (
+            <p style={{ textAlign: "center" }}>
+              Elige una propiedad y haz clic en <strong>Reservar</strong> para
+              iniciar tu reserva.
+            </p>
+          ) : (
             <>
+              <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>
+                Estás reservando:{" "}
+                <strong>{selectedProperty.title}</strong>
+              </h3>
+
               <CalendarComponent
                 selectedDates={selectedDates}
-                onDateChange={setSelectedDates}
+                onDateChange={handleDateChange}
               />
+
               <BookingForm
                 property={selectedProperty}
                 selectedDates={selectedDates}
               />
             </>
-          ) : (
-            <p style={{ textAlign: "center" }}>Selecciona una propiedad para reservar.</p>
           )}
         </section>
 
+        {/* Contacto */}
         <section id="contact" className="contact-section">
           <h2 className="section-title">Contacto</h2>
           <ContactForm />

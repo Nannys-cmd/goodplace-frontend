@@ -1,8 +1,7 @@
 // Frontend/src/components/Header.jsx
 import React, { useEffect, useState } from "react";
-import PropertyCard from "./PropertyCard";
 import "../styles/styles.css";
-import "../styles/PropertyCard.css";
+import PropertyCard from "./PropertyCard";
 
 export default function Header() {
   const images = [
@@ -45,17 +44,19 @@ export default function Header() {
       const res = await fetch(import.meta.env.VITE_API_URL + "/properties");
       const data = await res.json();
 
+      // Filtro básico: ubicación y huéspedes
       const filtered = data.filter((p) => {
         const matchLocation =
           p.subtitle.toLowerCase().includes(searchData.location.toLowerCase()) ||
           p.title.toLowerCase().includes(searchData.location.toLowerCase());
+
         const matchGuests = p.capacity >= parseInt(searchData.guests);
 
         return matchLocation && matchGuests;
       });
 
       setSearchResults(filtered);
-      setShowModal(true); // 👈 mostrar modal
+      setShowModal(true); // 👈 abre el modal
     } catch (err) {
       console.error("❌ Error buscando propiedades:", err);
     }
@@ -129,14 +130,12 @@ export default function Header() {
         </div>
       </div>
 
-      {/* 📌 Modal con resultados */}
+      {/* 🔹 Modal con resultados */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="modal-close" onClick={() => setShowModal(false)}>
-              ✖
-            </button>
-            <h2>Resultados de búsqueda</h2>
+        <div className="results-modal-overlay">
+          <div className="results-modal">
+            <button className="close-results" onClick={() => setShowModal(false)}>✕</button>
+            <h2>Resultados de la búsqueda</h2>
             {searchResults.length > 0 ? (
               <div className="results-grid">
                 {searchResults.map((prop) => (
@@ -144,7 +143,7 @@ export default function Header() {
                 ))}
               </div>
             ) : (
-              <p>No se encontraron resultados.</p>
+              <p>No se encontraron propiedades disponibles.</p>
             )}
           </div>
         </div>

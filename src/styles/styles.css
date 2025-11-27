@@ -183,55 +183,53 @@ a {
   max-width: 1100px;
 }
 
-/* --- Modal para resultados --- */
-.modal-overlay {
+/* 🔹 Modal de resultados */
+.results-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 2000;
 }
 
-.modal-content {
+.results-modal {
   background: #fff;
   border-radius: 12px;
-  padding: 2rem;
-  max-width: 1000px;
-  width: 95%;
+  padding: 20px;
+  max-width: 90%;
+  width: 900px;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   position: relative;
 }
 
-.modal-content h2 {
-  margin-bottom: 1.5rem;
+.results-modal h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
   text-align: center;
 }
 
-.modal-close {
+.close-results {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
   background: #ff4b4b;
-  color: white;
   border: none;
   border-radius: 50%;
+  color: white;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-size: 18px;
 }
 
-.modal-close:hover {
-  background: #d40000;
-}
-
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
 }
 
 /* ---------------- Formulario de contacto ---------------- */
