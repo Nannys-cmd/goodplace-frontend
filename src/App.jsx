@@ -80,9 +80,6 @@ function App() {
                 selectedDates={selectedDates}
               />
 
-              {/* 🔹 RESERVAS INTERNAS GUARDADAS EN BACKEND */}
-              <PropertyBookedDates property={selectedProperty} />
-
               {/* 🔹 RESERVAS EXTERNAS DESDE iCal */}
               <PropertyIcalEvents property={selectedProperty} />
             </>
