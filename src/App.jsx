@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header onReserve={handleReserve} />
 
       <main>
         {/* Listado de propiedades */}

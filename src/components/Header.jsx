@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/styles.css";
 import PropertyCard from "./PropertyCard";
 
-export default function Header() {
+export default function Header({ onReserve }) {
   const images = [
     "/sampleBA1.jpg",
     "/sampleBA2.jpg",
@@ -139,7 +139,16 @@ export default function Header() {
             {searchResults.length > 0 ? (
               <div className="results-grid">
                 {searchResults.map((prop) => (
-                  <PropertyCard key={prop.id} property={prop} />
+                  <PropertyCard
+                    key={prop.id}
+                    property={prop}
+                    onReserve={(selected) => {
+                      if (onReserve) {
+                        onReserve(selected);   // avisamos a App → scroll + setSelectedProperty
+                      }
+                      setShowModal(false);      // cerramos la ventana emergente
+                    }}
+                  />
                 ))}
               </div>
             ) : (
